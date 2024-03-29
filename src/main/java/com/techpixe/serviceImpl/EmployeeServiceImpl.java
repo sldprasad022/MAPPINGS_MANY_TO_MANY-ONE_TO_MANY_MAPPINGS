@@ -57,12 +57,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 	@Override
-	public List<Employee> findByEmployeeNameContains(String employeeName)
-	{
-		List<Employee> all= employeeRepository.findByEmployeeNameContaining(employeeName);
+	public List<Employee> findByEmployeeNameContains(String employeeName) {
+		List<Employee> all = employeeRepository.findByEmployeeNameContaining(employeeName);
+		if (all.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not contain any Name");
+		}
+		return all;
+	}
+
+	@Override
+	public List<Employee> findBySalaryLessThan(double salary) {
+		List<Employee> all=  employeeRepository.findBySalaryLessThan(salary);
 		if (all.isEmpty())
 		{
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Does not contain any Name");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No One is Present with Less than "+salary+" salary");
 		}
 		return all;
 	}

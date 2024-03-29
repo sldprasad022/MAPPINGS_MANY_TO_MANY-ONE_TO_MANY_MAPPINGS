@@ -8,4 +8,6 @@ import com.techpixe.entity.Employee;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
 	List<Employee> findByEmployeeNameContaining(String employeeName);
+	// List<Course> findByFeeLessThan(double fee);
+	List<Employee> findBySalaryLessThan(double salary);
 }

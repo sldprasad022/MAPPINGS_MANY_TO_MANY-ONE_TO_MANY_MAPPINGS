@@ -63,4 +63,10 @@ public class EmployeeServiceImpl2 implements EmployeeService {
 		return null;
 	}
 
+	@Override
+	public List<Employee> findBySalaryLessThan(double salary) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

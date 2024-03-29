@@ -39,12 +39,17 @@ public class EmployeeController {
 		List<Employee> fetchAll = employeeService.all();
 		return ResponseEntity.ok(fetchAll);
 	}
-	
-	
+
 	@GetMapping("/containingLetter/{employeeName}")
-	public ResponseEntity<List<?>> fetchAllNameContains(@PathVariable String employeeName)
-	{
+	public ResponseEntity<List<?>> fetchAllNameContains(@PathVariable String employeeName) {
 		List<Employee> fetchAllNameContains = employeeService.findByEmployeeNameContains(employeeName);
 		return ResponseEntity.ok(fetchAllNameContains);
+	}
+	
+	@GetMapping("/salaryLess/{salary}")
+	public ResponseEntity<List<?>> fetchSalary(@PathVariable double salary)
+	{
+		 List<Employee> lessThanSalaryAll = employeeService.findBySalaryLessThan(salary);
+		 return ResponseEntity.ok(lessThanSalaryAll);
 	}
 }
