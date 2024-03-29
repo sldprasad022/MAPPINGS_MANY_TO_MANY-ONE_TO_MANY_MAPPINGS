@@ -29,14 +29,13 @@ public class ManagerServiceImpl implements ManagerService {
 	@Override
 	public Manager fetchById(Long id) {
 		return managerRepository.findById(id)
-				.orElseThrow(() -> new NoSuchElementException("Manager Id " + id + " is not present"));
+				.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Manager "+id+"  is not Present"));
 	}
 
 	@Override
 	public List<Manager> all() {
 		List<Manager> allManagers = managerRepository.findAll();
 		if (allManagers.isEmpty()) {
-			// return new ResponseStatusException(HttpStatus.NOT_FOUND,"");
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No records Present");
 		}
 		return allManagers;
