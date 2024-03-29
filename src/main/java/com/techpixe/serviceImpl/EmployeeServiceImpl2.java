@@ -17,7 +17,7 @@ import com.techpixe.repository.TeamLeadRepository;
 import com.techpixe.service.EmployeeService;
 
 @Service
-@Primary
+//@Primary
 public class EmployeeServiceImpl2 implements EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
@@ -55,6 +55,12 @@ public class EmployeeServiceImpl2 implements EmployeeService {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No records are Present");
 		}
 		return fetchedAll;
+	}
+
+	@Override
+	public List<Employee> findByEmployeeNameContains(String employeeName) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

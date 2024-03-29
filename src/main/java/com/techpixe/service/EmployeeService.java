@@ -10,5 +10,7 @@ public interface EmployeeService {
 	Employee fetchById(Long id);
 
 	List<Employee> all();
+	
+	List<Employee> findByEmployeeNameContains(String employeeName);
 
 }

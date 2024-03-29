@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,6 +16,7 @@ import com.techpixe.repository.TeamLeadRepository;
 import com.techpixe.service.EmployeeService;
 
 @Service
+@Primary
 public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
@@ -52,6 +54,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No records are Present");
 		}
 		return fetchedAll;
+	}
+
+	@Override
+	public List<Employee> findByEmployeeNameContains(String employeeName)
+	{
+		List<Employee> all= employeeRepository.findByEmployeeNameContaining(employeeName);
+		if (all.isEmpty())
+		{
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"Does not contain any Name");
+		}
+		return all;
 	}
 
 }

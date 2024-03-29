@@ -17,29 +17,34 @@ import com.techpixe.service.EmployeeService;
 
 @RestController
 @RequestMapping("/employee")
-public class EmployeeController
-{
+public class EmployeeController {
 	@Autowired
 	private EmployeeService employeeService;
-	
+
 	@PostMapping("/save/{teamLead}")
-	public ResponseEntity<Employee> saveEmployee(@PathVariable Long teamLead, @RequestParam String employeeName, @RequestParam double experience, @RequestParam double salary)
-	{
+	public ResponseEntity<Employee> saveEmployee(@PathVariable Long teamLead, @RequestParam String employeeName,
+			@RequestParam double experience, @RequestParam double salary) {
 		Employee saved = employeeService.save(teamLead, employeeName, experience, salary);
 		return new ResponseEntity<Employee>(saved, HttpStatus.CREATED);
 	}
-	
+
 	@GetMapping("/fetchById/{employeeId}")
-	public ResponseEntity<?> fetchById(@PathVariable("employeeId") Long id)
-	{
+	public ResponseEntity<?> fetchById(@PathVariable("employeeId") Long id) {
 		Employee fetchById = employeeService.fetchById(id);
 		return ResponseEntity.ok(fetchById);
 	}
-	
+
 	@GetMapping("/all")
-	public ResponseEntity<List<?>> fetchAll()
+	public ResponseEntity<List<?>> fetchAll() {
+		List<Employee> fetchAll = employeeService.all();
+		return ResponseEntity.ok(fetchAll);
+	}
+	
+	
+	@GetMapping("/containingLetter/{employeeName}")
+	public ResponseEntity<List<?>> fetchAllNameContains(@PathVariable String employeeName)
 	{
-		 List<Employee> fetchAll = employeeService.all();
-		 return ResponseEntity.ok(fetchAll);
+		List<Employee> fetchAllNameContains = employeeService.findByEmployeeNameContains(employeeName);
+		return ResponseEntity.ok(fetchAllNameContains);
 	}
 }
