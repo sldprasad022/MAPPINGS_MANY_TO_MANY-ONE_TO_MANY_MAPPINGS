@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,11 +46,25 @@ public class EmployeeController {
 		List<Employee> fetchAllNameContains = employeeService.findByEmployeeNameContains(employeeName);
 		return ResponseEntity.ok(fetchAllNameContains);
 	}
-	
+
 	@GetMapping("/salaryLess/{salary}")
-	public ResponseEntity<List<?>> fetchSalary(@PathVariable double salary)
+	public ResponseEntity<List<?>> fetchSalary(@PathVariable double salary) {
+		List<Employee> lessThanSalaryAll = employeeService.findBySalaryLessThan(salary);
+		return ResponseEntity.ok(lessThanSalaryAll);
+	}
+	
+	@DeleteMapping("/delete/{employeeId}")
+	public ResponseEntity<Void> deleteById(@PathVariable("employeeId") Long id)
 	{
-		 List<Employee> lessThanSalaryAll = employeeService.findBySalaryLessThan(salary);
-		 return ResponseEntity.ok(lessThanSalaryAll);
+		Employee deleteById = employeeService.fetchById(id);
+		if (deleteById==null) 
+		{
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		else
+		{
+			employeeService.deleteById(id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
 	}
 }

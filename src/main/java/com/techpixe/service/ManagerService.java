@@ -10,4 +10,6 @@ public interface ManagerService {
 	Manager fetchById(Long id);
 
 	List<Manager> all();
+	
+	void deleteById(Long id);
 }

@@ -12,7 +12,9 @@ public interface EmployeeService {
 	List<Employee> all();
 
 	List<Employee> findByEmployeeNameContains(String employeeName);
-	
+
 	List<Employee> findBySalaryLessThan(double salary);
+	
+	void deleteById(Long id);
 
 }

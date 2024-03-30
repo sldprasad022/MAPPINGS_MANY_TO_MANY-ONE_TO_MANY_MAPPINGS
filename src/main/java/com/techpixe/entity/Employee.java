@@ -1,5 +1,7 @@
 package com.techpixe.entity;
 
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.Entity;
@@ -29,6 +31,8 @@ public class Employee {
 	private double experience;
 
 	private double salary;
+	
+	private LocalDateTime createdOn;
 
 	@JsonBackReference
 	@ManyToOne(fetch = FetchType.EAGER)

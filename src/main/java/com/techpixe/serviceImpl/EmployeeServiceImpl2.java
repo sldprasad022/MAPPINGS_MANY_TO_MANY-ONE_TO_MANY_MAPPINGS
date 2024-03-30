@@ -69,4 +69,10 @@ public class EmployeeServiceImpl2 implements EmployeeService {
 		return null;
 	}
 
+	@Override
+	public void deleteById(Long id) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

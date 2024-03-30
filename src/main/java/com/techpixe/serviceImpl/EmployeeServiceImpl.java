@@ -1,5 +1,6 @@
 package com.techpixe.serviceImpl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -37,6 +38,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 			employee.setTeamLead(teamLead1);
 			employee.setSalary(salary);
 			employee.setRole("Employee");
+			
+			employee.setCreatedOn(LocalDateTime.now());
 			return employeeRepository.save(employee);
 		} else {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Team Lead " + teamLead + " is not Present");
@@ -67,12 +70,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public List<Employee> findBySalaryLessThan(double salary) {
-		List<Employee> all=  employeeRepository.findBySalaryLessThan(salary);
-		if (all.isEmpty())
-		{
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND,"No One is Present with Less than "+salary+" salary");
+		List<Employee> all = employeeRepository.findBySalaryLessThan(salary);
+		if (all.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND,
+					"No One is Present with Less than " + salary + " salary");
 		}
 		return all;
+	}
+
+	@Override
+	public void deleteById(Long id) {
+		employeeRepository.deleteById(id);
 	}
 
 }
